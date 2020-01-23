@@ -9,8 +9,8 @@ import javax.swing.JFrame;
 
 public class DynamicBeat extends JFrame{
 	
-	private Image screenImage;
-	private Graphics screenGraphic;
+	private Image screenImage;		//더블 버퍼링을 위해 전체 화면에대한 이미지를 담는 인스턴스
+	private Graphics screenGraphic;//더블 버퍼링을 위해 전체 화면에대한 이미지를 담는 인스턴스
 	
 	private Image introBackground;
 	
@@ -30,7 +30,7 @@ public class DynamicBeat extends JFrame{
 		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 		screenGraphic = screenImage.getGraphics();
 		screenDraw(screenGraphic);
-		g.drawImage(screenImage, 0, 0, null);
+		g.drawImage(screenImage, 0, 0, null);	//0,0에 그리는 것
 	}
 	
 	public void screenDraw(Graphics g) {
