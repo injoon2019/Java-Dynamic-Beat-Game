@@ -1,4 +1,4 @@
-package dynamic_beat_6;
+package dynamic_beat_7;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,8 +31,7 @@ public class DynamicBeat extends JFrame {
 	private ImageIcon rightButtonBasicImage = new ImageIcon(Main.class.getResource("../images/rightButtonBasic.png"));
 	
 	
-	private Image titleImage = new ImageIcon(Main.class.getResource("../images/Mighty Love Title Image.png")).getImage();
-	private Image selectedImage = new ImageIcon(Main.class.getResource("../images/Mighty Love Start Image.png")).getImage();
+
 	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png")));
 
@@ -45,6 +45,12 @@ public class DynamicBeat extends JFrame {
 	
 	private boolean isMainScreen= false;
 	
+	ArrayList<Track> trackList = new ArrayList<Track>();
+	
+	private Image titleImage;
+	private Image selectedImage;
+	private Music selectedMusic;
+	private int nowSelected=0;
 
 	public DynamicBeat() {
 		setUndecorated(true);
@@ -56,7 +62,14 @@ public class DynamicBeat extends JFrame {
 		setVisible(true);
 		setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
-
+				
+		Music introMusic = new Music("introMusic.mp3", true);
+		introMusic.start();
+		
+		trackList.add(new Track("Mighty Love Title Image.png", "Mighty Love Start Image.png", "Mighty Love Game Image.png", "Mighty Love Selected.mp3", "Joakim Karud - Mighty Love.mp3"));
+		trackList.add(new Track("Wild Flower Title Image.png", "Wild Flower Start Image.png", "Wild Flower Game Image.png", "Wild Flower Selected.mp3", "Joakim Karud - Wild Flower.mp3"));
+		trackList.add(new Track("Energy Title Image.png", "Energy Start Image.png", "Energy Game Image.png", "Energy Selected.mp3", "Bensound - Energy.mp3"));
+		
 		exitButton.setBounds(1245, 0, 30, 30);
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
@@ -115,6 +128,8 @@ public class DynamicBeat extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
+				introMusic.close();
+				selectTrack(0);
 				startButton.setVisible(false);
 				quitButton.setVisible(false);
 				leftButton.setVisible(true);
@@ -185,12 +200,7 @@ public class DynamicBeat extends JFrame {
 				Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
 				//왼쪽 버튼 이벤트 
-				startButton.setVisible(false);
-				quitButton.setVisible(false);
-				leftButton.setVisible(true);
-				rightButton.setVisible(true);
-				background = new ImageIcon(Main.class.getResource("../images/mainBackground.png")).getImage();
-				isMainScreen = true;
+				selectLeft();
 			}
 		});
 		add(leftButton);
@@ -220,12 +230,8 @@ public class DynamicBeat extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
-				startButton.setVisible(false);
-				quitButton.setVisible(false);
-				leftButton.setVisible(true);
-				rightButton.setVisible(true);
-				background = new ImageIcon(Main.class.getResource("../images/mainBackground.png")).getImage();
-				isMainScreen = true;
+				selectRight();
+				
 			}
 		});
 		add(rightButton);
@@ -250,8 +256,7 @@ public class DynamicBeat extends JFrame {
 		});
 		add(menuBar);
 
-		Music introMusic = new Music("introMusic.mp3", true);
-		introMusic.start();
+
 	}
 
 	public void paint(Graphics g) {
@@ -271,5 +276,33 @@ public class DynamicBeat extends JFrame {
 		paintComponents(g); // always fixed button. So add a menu bar.
 							//add(x) 된 부분들을 보여준다 
 		this.repaint();
+	}
+	
+	
+	public void selectTrack(int nowSelected) {
+		if(selectedMusic !=null)
+			selectedMusic.close();
+		
+		titleImage = new ImageIcon(Main.class.getResource("../images/"+trackList.get(nowSelected).getTitleImage())).getImage();
+		selectedImage = new ImageIcon(Main.class.getResource("../images/"+trackList.get(nowSelected).getStartImage())).getImage();
+		selectedMusic = new Music(trackList.get(nowSelected).getStartMusic(),true);
+		selectedMusic.start();
+		
+	}
+	
+	public void selectLeft() {
+		if(nowSelected==0)
+			nowSelected = trackList.size()-1;
+		else
+			nowSelected--;
+		selectTrack(nowSelected);
+	}
+	
+	public void selectRight() {
+		if(nowSelected== trackList.size()-1)
+			nowSelected = 0;
+		else
+			nowSelected++;
+		selectTrack(nowSelected);
 	}
 }
