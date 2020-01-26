@@ -1,4 +1,4 @@
-package dynamic_beat_8;
+package dynamic_beat_9;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -13,6 +13,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import dynamic_beat_8.Main;
+import dynamic_beat_8.Music;
 
 public class DynamicBeat extends JFrame {
 
@@ -58,6 +61,7 @@ public class DynamicBeat extends JFrame {
 	private Image selectedImage;
 	private Music selectedMusic;
 	private int nowSelected=0;
+	private Music introMusic = new Music("introMusic.mp3", true);
 
 	public DynamicBeat() {
 		setUndecorated(true);
@@ -70,7 +74,6 @@ public class DynamicBeat extends JFrame {
 		setBackground(new Color(0, 0, 0, 0));
 		setLayout(null);
 				
-		Music introMusic = new Music("introMusic.mp3", true);
 		introMusic.start();
 		
 		trackList.add(new Track("Mighty Love Title Image.png", "Mighty Love Start Image.png", "Mighty Love Game Image.jpg", "Mighty Love Selected.mp3", "Joakim Karud - Mighty Love.mp3"));
@@ -135,16 +138,7 @@ public class DynamicBeat extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
-				introMusic.close();
-				selectTrack(0);
-				startButton.setVisible(false);
-				quitButton.setVisible(false);
-				leftButton.setVisible(true);
-				rightButton.setVisible(true);
-				easyButton.setVisible(true);
-				hardButton.setVisible(true);
-				background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
-				isMainScreen = true;
+				enterMain();
 			}
 		});
 		add(startButton);
@@ -307,6 +301,7 @@ public class DynamicBeat extends JFrame {
 			}
 		});
 		add(hardButton);
+
 		
 		backButton.setVisible(false);
 		backButton.setBounds(20, 50, 60, 60);
@@ -333,12 +328,11 @@ public class DynamicBeat extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("buttonPressedMusic.mp3", false);
 				buttonEnteredMusic.start();
-				//메인 돌아가는 이벤트
+				backMain();
 				
 			}
 		});
 		add(backButton);
-
 
 		menuBar.setBounds(0, 0, 1280, 30);
 		menuBar.addMouseListener(new MouseAdapter() {
@@ -421,7 +415,6 @@ public class DynamicBeat extends JFrame {
 		backButton.setVisible(true);
 	}
 	
-	
 	public void backMain() {
 		isMainScreen= true;
 		leftButton.setVisible(true);
@@ -429,8 +422,20 @@ public class DynamicBeat extends JFrame {
 		easyButton.setVisible(true);
 		hardButton.setVisible(true);
 		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
-		
 		backButton.setVisible(false);
+		selectTrack(nowSelected);
+	}
 	
+	public void enterMain() {
+		startButton.setVisible(false);
+		quitButton.setVisible(false);
+		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
+		isMainScreen = true;
+		leftButton.setVisible(true);
+		rightButton.setVisible(true);
+		easyButton.setVisible(true);
+		hardButton.setVisible(true);
+		introMusic.close();
+		selectTrack(0);
 	}
 }
