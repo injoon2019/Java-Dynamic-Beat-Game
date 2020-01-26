@@ -429,7 +429,7 @@ public class DynamicBeat extends JFrame {
 		backButton.setVisible(true);
 		isGameScreen = true;
 		setFocusable(true);
-		game = new Game(trackList.get(nowSelected).getTitleName(), difficulty, trackList.get(nowSelected).getTitleName());
+		game = new Game(trackList.get(nowSelected).getTitleName(), difficulty, trackList.get(nowSelected).getGameMusic());
 	}
 
 	public void backMain() {
@@ -442,6 +442,7 @@ public class DynamicBeat extends JFrame {
 		backButton.setVisible(false);
 		selectTrack(nowSelected);
 		isGameScreen = false;
+		game.close();
 	}
 
 	public void enterMain() {

@@ -150,4 +150,9 @@ public class Game extends Thread {
 	public void run() {
 		
 	}
+	
+	public void close() {
+		gameMusic.close();
+		this.interrupt();
+	}
 }
