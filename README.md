@@ -7,7 +7,7 @@ This is a rythm game based on Java. Users can select embedded songs and play wit
 
 
 ```
-![alt test](screenshots/image1.png)
+![Repo List](screenshots/image1.png)
 ```
 ```
 ![alt test](screenshots/image2.png)
