@@ -53,7 +53,7 @@ public class Note extends Thread {
 	@Override
 	public void run() {
 		try {
-			while(true) {
+			while(true) {	//This means the note will drop 700px per second
 				drop();
 				Thread.sleep(Main.SLEEP_TIME);
 			}

@@ -167,15 +167,25 @@ public class Game extends Thread {
 		
 		Beat[] beats= null;
 		if(titleName.equals("Joakim Karud - Mighty Love")) {
-			int startTime = 4460 - Main.REACH_TIME * 1000;
-			int gap =125;
+			int startTime = 1850 - Main.REACH_TIME * 1000;
+			int gap =470;
 			beats = new Beat[] {
 					new Beat(startTime, "S"),
 					new Beat(startTime+gap*2, "D"),
-					new Beat(startTime+gap*4, "S"),
-					new Beat(startTime+gap*6, "D"),
+					new Beat(startTime+gap*4, "J"),
+					new Beat(startTime+gap*6, "K"),
 					new Beat(startTime+gap*8, "S"),
-					new Beat(startTime+gap*10, "D"),
+					new Beat(startTime+gap*10, "S"),
+					new Beat(startTime+gap*12, "Space"),
+					new Beat(startTime+gap*14, "K"),
+					new Beat(startTime+gap*16, "L"),
+					new Beat(startTime+gap*18, "D"),
+					new Beat(startTime+gap*20, "D"),
+					new Beat(startTime+gap*22, "S"),
+					new Beat(startTime+gap*24, "F"),
+					new Beat(startTime+gap*26, "S"),
+					new Beat(startTime+gap*28, "K"),
+					new Beat(startTime+gap*30, "J"),
 			};
 		}
 		else if(titleName.equals("Joakim Karud - Wild Flower")) {
