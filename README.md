@@ -9,6 +9,7 @@ This is a rythm game based on Java. Users can select embedded songs and play wit
 ```
 ![Repo List](../master/screenshots/image1.png)
 ```
+<img src="screenshots/image1.png" alt="My cool logo"/>
 ```
 ![alt test](screenshots/image2.png)
 ```
